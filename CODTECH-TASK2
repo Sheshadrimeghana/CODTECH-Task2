@@ -1,0 +1,314 @@
+//* A Hospital Management System (HMS) is a software application designed to manage the day-to-day 
+operations of a hospital or healthcare facility Built in Java, it provides an efficient and secure
+platform to streamline processes such as patient registration,  appointment scheduling,
+medical records management, billing, and more.*//
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Patient class to manage patient information
+class Patient {
+    String patientId;
+    String name;
+    String address;
+    String phone;
+
+    public Patient(String patientId, String name, String address, String phone) {
+        this.patientId = patientId;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient ID: " + patientId + ", Name: " + name + ", Address: " + address + ", Phone: " + phone;
+    }
+}
+
+// Appointment class to manage appointment scheduling
+class Appointment {
+    String patientId;
+    String date;
+    String time;
+    String doctor;
+
+    public Appointment(String patientId, String date, String time, String doctor) {
+        this.patientId = patientId;
+        this.date = date;
+        this.time = time;
+        this.doctor = doctor;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient ID: " + patientId + ", Appointment Date: " + date + ", Time: " + time + ", Doctor: " + doctor;
+    }
+}
+
+// Billing class to manage billing and invoicing
+class Billing {
+    String patientId;
+    double amount;
+
+    public Billing(String patientId, double amount) {
+        this.patientId = patientId;
+        this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient ID: " + patientId + ", Billing Amount: " + amount;
+    }
+}
+
+// Inventory class to manage medical supplies
+class Inventory {
+    String itemName;
+    int quantity;
+
+    public Inventory(String itemName, int quantity) {
+        this.itemName = itemName;
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Item: " + itemName + ", Quantity: " + quantity;
+    }
+}
+
+// Staff class to manage hospital staff information
+class Staff {
+    String staffId;
+    String name;
+    String role;
+
+    public Staff(String staffId, String name, String role) {
+        this.staffId = staffId;
+        this.name = name;
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff ID: " + staffId + ", Name: " + name + ", Role: " + role;
+    }
+}
+
+public class HospitalManagementSystem {
+    static ArrayList<Patient> patients = new ArrayList<>();
+    static ArrayList<Appointment> appointments = new ArrayList<>();
+    static ArrayList<Billing> billings = new ArrayList<>();
+    static ArrayList<Inventory> inventoryItems = new ArrayList<>();
+    static ArrayList<Staff> staffMembers = new ArrayList<>();
+    static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("===== Hospital Management System =====");
+            System.out.println("1. Manage Patients");
+            System.out.println("2. Manage Appointments");
+            System.out.println("3. Manage Billing");
+            System.out.println("4. Manage Inventory");
+            System.out.println("5. Manage Staff");
+            System.out.println("6. Exit");
+            System.out.print("Choose an option: ");
+            int choice = sc.nextInt();
+            sc.nextLine();  // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    managePatients();
+                    break;
+                case 2:
+                    manageAppointments();
+                    break;
+                case 3:
+                    manageBilling();
+                    break;
+                case 4:
+                    manageInventory();
+                    break;
+                case 5:
+                    manageStaff();
+                    break;
+                case 6:
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
+    // Patient management
+    static void managePatients() {
+        System.out.println("===== Manage Patients =====");
+        System.out.println("1. Add Patient");
+        System.out.println("2. View Patients");
+        System.out.println("3. Go Back");
+        System.out.print("Choose an option: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter Patient ID: ");
+                String patientId = sc.nextLine();
+                System.out.print("Enter Name: ");
+                String name = sc.nextLine();
+                System.out.print("Enter Address: ");
+                String address = sc.nextLine();
+                System.out.print("Enter Phone: ");
+                String phone = sc.nextLine();
+                patients.add(new Patient(patientId, name, address, phone));
+                System.out.println("Patient added successfully!");
+                break;
+            case 2:
+                System.out.println("Patients List:");
+                for (Patient p : patients) {
+                    System.out.println(p);
+                }
+                break;
+            case 3:
+                return;
+            default:
+                System.out.println("Invalid option. Try again.");
+        }
+    }
+
+    // Appointment management
+    static void manageAppointments() {
+        System.out.println("===== Manage Appointments =====");
+        System.out.println("1. Add Appointment");
+        System.out.println("2. View Appointments");
+        System.out.println("3. Go Back");
+        System.out.print("Choose an option: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter Patient ID: ");
+                String patientId = sc.nextLine();
+                System.out.print("Enter Appointment Date (DD/MM/YYYY): ");
+                String date = sc.nextLine();
+                System.out.print("Enter Appointment Time (HH:MM): ");
+                String time = sc.nextLine();
+                System.out.print("Enter Doctor's Name: ");
+                String doctor = sc.nextLine();
+                appointments.add(new Appointment(patientId, date, time, doctor));
+                System.out.println("Appointment added successfully!");
+                break;
+            case 2:
+                System.out.println("Appointments List:");
+                for (Appointment a : appointments) {
+                    System.out.println(a);
+                }
+                break;
+            case 3:
+                return;
+            default:
+                System.out.println("Invalid option. Try again.");
+        }
+    }
+
+    // Billing management
+    static void manageBilling() {
+        System.out.println("===== Manage Billing =====");
+        System.out.println("1. Add Billing");
+        System.out.println("2. View Billings");
+        System.out.println("3. Go Back");
+        System.out.print("Choose an option: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter Patient ID: ");
+                String patientId = sc.nextLine();
+                System.out.print("Enter Billing Amount: ");
+                double amount = sc.nextDouble();
+                billings.add(new Billing(patientId, amount));
+                System.out.println("Billing added successfully!");
+                break;
+            case 2:
+                System.out.println("Billings List:");
+                for (Billing b : billings) {
+                    System.out.println(b);
+                }
+                break;
+            case 3:
+                return;
+            default:
+                System.out.println("Invalid option. Try again.");
+        }
+    }
+
+    // Inventory management
+    static void manageInventory() {
+        System.out.println("===== Manage Inventory =====");
+        System.out.println("1. Add Inventory Item");
+        System.out.println("2. View Inventory");
+        System.out.println("3. Go Back");
+        System.out.print("Choose an option: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter Item Name: ");
+                String itemName = sc.nextLine();
+                System.out.print("Enter Quantity: ");
+                int quantity = sc.nextInt();
+                inventoryItems.add(new Inventory(itemName, quantity));
+                System.out.println("Inventory item added successfully!");
+                break;
+            case 2:
+                System.out.println("Inventory List:");
+                for (Inventory i : inventoryItems) {
+                    System.out.println(i);
+                }
+                break;
+            case 3:
+                return;
+            default:
+                System.out.println("Invalid option. Try again.");
+        }
+    }
+
+    // Staff management
+    static void manageStaff() {
+        System.out.println("===== Manage Staff =====");
+        System.out.println("1. Add Staff");
+        System.out.println("2. View Staff");
+        System.out.println("3. Go Back");
+        System.out.print("Choose an option: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter Staff ID: ");
+                String staffId = sc.nextLine();
+                System.out.print("Enter Staff Name: ");
+                String staffName = sc.nextLine();
+                System.out.print("Enter Role: ");
+                String role = sc.nextLine();
+                staffMembers.add(new Staff(staffId, staffName, role));
+                System.out.println("Staff added successfully!");
+                break;
+            case 2:
+                System.out.println("Staff List:");
+                for (Staff s : staffMembers) {
+                    System.out.println(s);
+                }
+                break;
+            case 3:
+                return;
+            default:
+                System.out.println("Invalid option. Try again.");
+        }
+    }
+}
